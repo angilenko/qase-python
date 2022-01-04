@@ -22,6 +22,26 @@ class TestCaseStatus(Enum):
 
 
 @attr.s
+class TestCaseCreate:
+    title: str = attr.ib()
+    description: str = attr.ib(default=None)
+    behavior: int = attr.ib(default=None)
+    type: int = attr.ib(default=None)
+    suite_id: int = attr.ib(default=None)
+    steps: List[int] = attr.ib(factory=list)
+
+
+@attr.s
+class TestCaseUpdate(TestCaseCreate):
+    title: str = attr.ib(default=None)
+
+
+@attr.s
+class TestCaseCreated:
+    id = attr.ib(default=None)
+
+
+@attr.s
 class TestCaseInfo:
     id = attr.ib(default=None)
     position = attr.ib(default=None)
@@ -63,3 +83,4 @@ class TestCaseFilters(DefaultFilter):
 @attr.s
 class TestCaseList(DefaultList):
     entities: List[TestCaseInfo] = attr.ib(factory=list)
+

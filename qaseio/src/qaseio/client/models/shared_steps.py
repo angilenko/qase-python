@@ -8,15 +8,13 @@ from qaseio.client.models.base import DefaultFilter, DefaultList
 @attr.s
 class SharedStepCreate:
     title: str = attr.ib()
-    action: str = attr.ib()
-    expected_result: str = attr.ib(default=None)
+    steps: List[int] = attr.ib(factory=list)
 
 
 @attr.s
 class SharedStepUpdate:
     title: str = attr.ib(default=None)
-    action: str = attr.ib(default=None)
-    expected_result: str = attr.ib(default=None)
+    steps: List[int] = attr.ib(factory=list)
 
 
 @attr.s

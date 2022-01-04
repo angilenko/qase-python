@@ -1,6 +1,7 @@
 from typing import Union
 
-from qaseio.client.models import TestCaseFilters, TestCaseInfo, TestCaseList
+from qaseio.client.models import TestCaseCreate, TestCaseUpdate, TestCaseFilters, \
+    TestCaseInfo, TestCaseList, TestCaseCreated
 from qaseio.client.services import BaseService, NotFoundException
 
 
@@ -37,3 +38,18 @@ class Cases(BaseService):
             return self.get(code, case_id)
         except NotFoundException:
             return False
+
+    def create(self, code: str, data: TestCaseCreate):
+        return self.vr(
+            self.s.post(self.path("case/{}".format(code)), data=data),
+            to_type=TestCaseCreated,
+        )
+
+    def update(self, code: str, case_id: str, data: TestCaseUpdate):
+        return self.vr(
+            self.s.patch(
+                self.path("case/{}/{}".format(code, case_id)),
+                data=data,
+            ),
+            to_type=TestCaseCreated,
+        )
